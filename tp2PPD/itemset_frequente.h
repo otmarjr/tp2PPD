@@ -18,12 +18,13 @@ public:
     itemset_frequente(int indice);
     int k();
     void adicionar_conjunto(vector<item*> conjunto);
+    bool esta_vazio();
+    set<item*> operator[](int index) const;
+    int tamanho();
 private:
     int indice_k;
-    int total_conjuntos;
-    vector<vector<item*> > itens_posicional;
-    set<set<item*> > itens_nao_ordenados;
-    set<item*> todos_itens;
+    vector<set<item*> > subconjuntos_ordenados;
+    set<set<item*> > subcojuntos_nao_ordenados;
 };
 
 #endif	/* ITEMSET_FREQUENTE_H */

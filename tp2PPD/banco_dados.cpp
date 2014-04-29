@@ -86,7 +86,7 @@ banco_dados banco_dados::gerar_massa_testes(){
 
 itemset_frequente banco_dados::f1_itemset(float suporte_minimo){
     int k = 1;
-    
+    itemset_frequente f1(k);
     for (int i=0;i<this->itens_a_venda.size();i++){
         item* it = this->itens_a_venda[i];
         
@@ -101,17 +101,22 @@ itemset_frequente banco_dados::f1_itemset(float suporte_minimo){
         }
         
         if (count_i/(1.0f*T) >= suporte_minimo){
-            
+            vector<item*> is1;
+            is1.push_back(it);
+            f1.adicionar_conjunto(is1);
         }
     }
     
-    return itemset_frequente(k);
+    return f1;
 }
 
 itemset_frequente banco_dados::obter_conjunto_a_priori(float suporte_minimo){
-    
-    
     itemset_frequente L1 = f1_itemset(suporte_minimo);
+    itemset_frequente LkmenosUm = L1;
+    
+    for (int k=2;!LkmenosUm.esta_vazio();k++){
+        itemset_frequente Ck = apriori_gen(LkmenosUm);
+    }
     int n=0;
     itemset_frequente isf(n);
     return isf;
@@ -120,6 +125,13 @@ itemset_frequente banco_dados::obter_conjunto_a_priori(float suporte_minimo){
 itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1)
 {
     int n=0;
+    
+    for (int i=0; i<Lkmenos1.tamanho();i++){
+        for (int j=0;j<Lkmenos1.tamanho();j++){
+            
+        }
+    }
+    
     return itemset_frequente(n);
 }
 

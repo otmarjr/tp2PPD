@@ -9,7 +9,6 @@
 
 itemset_frequente::itemset_frequente(int indice) {
     this->indice_k = indice;
-    this->total_conjuntos = 0;
 }
 
 int itemset_frequente::k() {
@@ -17,7 +16,21 @@ int itemset_frequente::k() {
 }
 
 void itemset_frequente::adicionar_conjunto(vector<item*> conjunto){
-    this->total_conjuntos++;
+    set<item*> s(conjunto.begin(), conjunto.end());
     
-    // this->itens_nao_ordenados.insert(); // TODO - Continue daqui!!!
+    this->subconjuntos_ordenados.push_back(s);
+    this->subcojuntos_nao_ordenados.insert(s);
+}
+
+bool itemset_frequente::esta_vazio(){
+    return this->subcojuntos_nao_ordenados.size() == 0;
+}
+int itemset_frequente::tamanho()
+{
+    return this->subconjuntos_ordenados.size();
+}
+
+set<item*> itemset_frequente::operator[](int indice) const
+{
+    return this->subconjuntos_ordenados[indice];
 }
