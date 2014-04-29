@@ -84,8 +84,46 @@ banco_dados banco_dados::gerar_massa_testes(){
     return banco_dados(its, v);
 }
 
-vector<vector<item*> > banco_dados::obter_conjunto_a_priori(float suporte_minimo){
-    vector<vector<item*> > apriori;
+itemset_frequente banco_dados::f1_itemset(float suporte_minimo){
+    int k = 1;
     
-    return apriori;
+    for (int i=0;i<this->itens_a_venda.size();i++){
+        item* it = this->itens_a_venda[i];
+        
+        int count_i = 0;
+        int T = this->vendas.size();
+        for (int j=0;j<T;j++){
+            transacao* t = this->vendas[j];
+            
+            if (t->possui_item(it)){
+                count_i++;
+            }
+        }
+        
+        if (count_i/(1.0f*T) >= suporte_minimo){
+            
+        }
+    }
+    
+    return itemset_frequente(k);
+}
+
+itemset_frequente banco_dados::obter_conjunto_a_priori(float suporte_minimo){
+    
+    
+    itemset_frequente L1 = f1_itemset(suporte_minimo);
+    int n=0;
+    itemset_frequente isf(n);
+    return isf;
+}
+
+itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1)
+{
+    int n=0;
+    return itemset_frequente(n);
+}
+
+bool banco_dados::tem_sub_conjunto_infrequente(itemset_frequente Ck, itemset_frequente Lkmenos1)
+{
+    return false;
 }

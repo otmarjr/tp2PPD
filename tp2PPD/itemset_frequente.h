@@ -15,10 +15,12 @@
 using namespace std;
 class itemset_frequente {
 public:
-    itemset_frequente();
+    itemset_frequente(int indice);
     int k();
+    void adicionar_conjunto(vector<item*> conjunto);
 private:
     int indice_k;
+    int total_conjuntos;
     vector<vector<item*> > itens_posicional;
     set<set<item*> > itens_nao_ordenados;
     set<item*> todos_itens;
