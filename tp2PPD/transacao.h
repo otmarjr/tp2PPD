@@ -6,6 +6,7 @@
  */
 
 #include "item.h"
+#include "itemset_frequente.h"
 #include <set>
 #include <vector>
 using namespace std;
@@ -20,6 +21,7 @@ public:
     int id();
     void adicionar_item_comprado(item* it);
     vector<vector<item*> > recuperar_subconjuntos_candidatos(vector<item*> Ck);
+    vector<vector<item*> > recuperar_subconjuntos_candidatos(itemset_frequente Ck);
 private:
     int id_transacao;
     vector<item*> itens_comprados;

@@ -58,6 +58,22 @@ vector<vector<item*> > obter_subconjuntos(int posicao_inicial, int tamanho_subco
     return v;
 }
 
+vector<vector<item*> > transacao::recuperar_subconjuntos_candidatos(itemset_frequente Ck){
+    vector<vector<item*> > v;
+    
+    for (int i=0;i<Ck.tamanho();i++){
+        if (Ck[i].size() == Ck.tamanho()){
+            vector<vector<item*> > v2 = recuperar_subconjuntos_candidatos(Ck[i]);
+            
+            for (int j=0;j<v2.size();j++){
+                v.push_back(v2[j]);
+            }
+        }
+    }
+    
+    return v;
+}
+
 vector<vector<item*> > transacao::recuperar_subconjuntos_candidatos(vector<item*> Ck)
 {
     int K = Ck.size();
