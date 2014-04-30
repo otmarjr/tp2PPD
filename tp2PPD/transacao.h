@@ -7,7 +7,7 @@
 
 #include "item.h"
 #include <set>
-
+#include <vector>
 using namespace std;
 
 #ifndef TRANSACAO_H
@@ -19,9 +19,10 @@ public:
     bool possui_item(item* it) const;
     int id();
     void adicionar_item_comprado(item* it);
+    vector<vector<item*> > recuperar_subconjuntos_candidatos(vector<item*> Ck);
 private:
     int id_transacao;
-    set<item*> itens_comprados;
+    vector<item*> itens_comprados;
 };
 
 #endif	/* TRANSACAO_H */

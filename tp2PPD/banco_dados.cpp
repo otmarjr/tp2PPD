@@ -118,7 +118,7 @@ itemset_frequente banco_dados::obter_conjunto_a_priori(float suporte_minimo){
     for (int k=2;!LkmenosUm.esta_vazio();k++){
         itemset_frequente Ck = apriori_gen(LkmenosUm);
         
-        for (int i=0;i<this->transacoes;i++){
+        for (int i=0;i<this->transacoes.size();i++){
             transacao* t = this->transacoes[i];
         }
     }
