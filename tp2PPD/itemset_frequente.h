@@ -11,7 +11,7 @@
 #include <vector>
 #include <set>
 #include "item.h"
-
+#include <algorithm>
 using namespace std;
 class itemset_frequente {
 public:
@@ -19,12 +19,12 @@ public:
     int k();
     void adicionar_conjunto(vector<item*> conjunto);
     bool esta_vazio();
-    set<item*> operator[](int index) const;
+    vector<item*> operator[](int index) const;
     int tamanho();
+    bool subconjunto_esta_contido(vector<item*> subconjunto);
 private:
     int indice_k;
-    vector<set<item*> > subconjuntos_ordenados;
-    set<set<item*> > subcojuntos_nao_ordenados;
+    vector<vector<item*> > subconjuntos_ordenados;
 };
 
 #endif	/* ITEMSET_FREQUENTE_H */

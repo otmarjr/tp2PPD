@@ -1,6 +1,7 @@
 #include "banco_dados.h"
 
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 
@@ -75,7 +76,7 @@ vector<transacao*> massa_testes_vendas(vector<item*> itens)
 banco_dados::banco_dados(vector<item*> itens_a_venda, vector<transacao*> vendas)
 {
     this->itens_a_venda = itens_a_venda;
-    this->vendas = vendas;
+    this->transacoes = vendas;
 }
 
 banco_dados banco_dados::gerar_massa_testes(){
@@ -91,9 +92,9 @@ itemset_frequente banco_dados::f1_itemset(float suporte_minimo){
         item* it = this->itens_a_venda[i];
         
         int count_i = 0;
-        int T = this->vendas.size();
+        int T = this->transacoes.size();
         for (int j=0;j<T;j++){
-            transacao* t = this->vendas[j];
+            transacao* t = this->transacoes[j];
             
             if (t->possui_item(it)){
                 count_i++;
@@ -116,6 +117,10 @@ itemset_frequente banco_dados::obter_conjunto_a_priori(float suporte_minimo){
     
     for (int k=2;!LkmenosUm.esta_vazio();k++){
         itemset_frequente Ck = apriori_gen(LkmenosUm);
+        
+        for (int i=0;i<this->transacoes;i++){
+            transacao* t = this->transacoes[i];
+        }
     }
     int n=0;
     itemset_frequente isf(n);
@@ -126,16 +131,63 @@ itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1)
 {
     int n=0;
     
+    int k = Lkmenos1.tamanho()+1;
+    int kMenosUm = Lkmenos1.tamanho();
+    int KMenosDois = kMenosUm-1;
+    itemset_frequente Ck(k);
+    
     for (int i=0; i<Lkmenos1.tamanho();i++){
+        vector<item*> l1 = Lkmenos1[i];
+        
         for (int j=0;j<Lkmenos1.tamanho();j++){
             
+            bool igualAteKMenosDois = true;
+            vector<item*> l2 = Lkmenos1[j];
+            
+            for (int x=0;x<KMenosDois;x++){
+                if (l1[x] != l2[x]){
+                    igualAteKMenosDois = false;
+                    break;
+                }
+            }
+            
+            if (igualAteKMenosDois && l1[kMenosUm] < l2[kMenosUm]){
+                vector<item*> c12(l1);
+                c12.push_back(l2[kMenosUm]);
+                
+                if (!tem_sub_conjunto_infrequente(c12, Lkmenos1)){
+                    Ck.adicionar_conjunto(c12);
+                }
+            }
         }
     }
     
-    return itemset_frequente(n);
+    return Ck;
 }
 
-bool banco_dados::tem_sub_conjunto_infrequente(itemset_frequente Ck, itemset_frequente Lkmenos1)
+vector<vector<item*> > banco_dados::subconjunto_tamanho_k_menos_um(vector<item*> c){
+    vector<vector<item*> > p;
+    
+    for (int i=0;i<c.size();i++){ // Para um conjunto de tamanho k, faz os subconjuntoss k-1 excluindo cada i-ésimo elemento uma vez
+        vector<item*> s(c);
+        s.erase(std::remove(s.begin(),s.end(),c[i]));
+        p.push_back(s);
+    }
+    
+    return p;
+}
+
+bool banco_dados::tem_sub_conjunto_infrequente(vector<item*> c, itemset_frequente Lkmenos1)
 {
+    vector<vector<item*> > subconjuntos_k_menos_um  = this->subconjunto_tamanho_k_menos_um(c);
+    
+    for (int i=0;i<subconjuntos_k_menos_um.size();i++){
+        vector<item*> s = subconjuntos_k_menos_um[i];
+        
+        if (!Lkmenos1.subconjunto_esta_contido(s)){
+            return true;
+        }
+    }
+    
     return false;
 }

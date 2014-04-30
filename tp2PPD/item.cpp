@@ -17,7 +17,12 @@ int item::identificador(){
 }
 
 bool item::operator ==(const item& other) const{
-    return other.id == this->id;
+    return this->id == other.id;
+}
+
+bool item::operator < (const item& it) const
+{
+    return this->id < it.id;
 }
 
 

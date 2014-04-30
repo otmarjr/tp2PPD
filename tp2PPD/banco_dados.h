@@ -22,10 +22,11 @@ public:
     itemset_frequente obter_conjunto_a_priori(float suporte_minimo);
 private:
     vector<item*> itens_a_venda;
-    vector<transacao*> vendas;
+    vector<transacao*> transacoes;
     itemset_frequente f1_itemset(float suporte_minimo);
     itemset_frequente apriori_gen(itemset_frequente Lkmenos1);
-    bool tem_sub_conjunto_infrequente(itemset_frequente Ck, itemset_frequente Lkmenos1);
+    bool tem_sub_conjunto_infrequente(vector<item*> c, itemset_frequente Lkmenos1);
+    vector<vector<item*> > subconjunto_tamanho_k_menos_um(vector<item*> c);
 };
 
 #endif	/* BANCO_DADOS_H */
