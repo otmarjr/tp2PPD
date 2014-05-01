@@ -1,5 +1,6 @@
 #include "banco_dados.h"
 #include "transacao.h"
+#include "globals.h"
 
 #include <vector>
 #include <algorithm>
@@ -112,20 +113,18 @@ itemset_frequente banco_dados::f1_itemset(float suporte_minimo) {
 
 vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_minimo) {
     vector<itemset_frequente> L;
-    
-    
+
+
     itemset_frequente L1 = f1_itemset(suporte_minimo);
     itemset_frequente LkmenosUm = L1;
-
+    itemset_frequente Lk = L1;
     L.push_back(L1);
-    
+
     for (int k = 2; !LkmenosUm.esta_vazio(); k++) {
         itemset_frequente Ck = apriori_gen(LkmenosUm);
-        vector<int> count_c(Ck.tamanho(),0);
-       
+        vector<int> count_c(Ck.tamanho(), 0);
+
         for (int i = 0; i<this->transacoes.size(); i++) {
-            int lol;
-            lol=0;
             vector<vector<item*> > Ct = this->transacoes[i]->recuperar_subconjuntos_candidatos(Ck.k());
 
             for (int x = 0; x < Ck.tamanho(); x++) {
@@ -135,30 +134,32 @@ vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_min
                     if (std::includes(Ct[j].begin(), Ct[j].end(), c.begin(), c.end())) {
                         count_c[x] = count_c[x] + 1;
                     }
-                    
+
                 }
             }
         }
 
-        for (int y=0;y<Ck.tamanho();y++){
-            cout<<"\n Ck[: "<<y<<"] = ";
-            for (int y2=0;y2<Ck[y].size();y2++){
-                cout<<" "<<Ck[y][y2]->identificador();
+        if (OUTPUT_DEBUG) {
+            for (int y = 0; y < Ck.tamanho(); y++) {
+                cout << "\n Ck[" << y << "] = ";
+                for (int y2 = 0; y2 < Ck[y].size(); y2++) {
+                    cout << " " << Ck[y][y2]->identificador();
+                }
+
+                cout << " count = " << count_c[y];
             }
-            
-            cout<<" count = "<<count_c[y];
+
         }
-        
         int T = this->transacoes.size();
-        itemset_frequente Lk(k);
+        Lk = itemset_frequente(k);
         L.push_back(Lk);
-        
-        for (int i=0;i<count_c.size();i++){
-            if (count_c[i]/(1.0f*T) >= suporte_minimo){
+
+        for (int i = 0; i < count_c.size(); i++) {
+            if (count_c[i] / (1.0f * T) >= suporte_minimo) {
                 Lk.adicionar_conjunto(Ck[i]);
             }
         }
-        
+
         LkmenosUm = Lk; // Prepara para próxima iteração.
     }
 
@@ -167,23 +168,24 @@ vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_min
 
 itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1) {
     int k = Lkmenos1.k();
-    int kMenosUm = k-1; // Offset por conta do índice 0
-    int KMenosDois = k-2; // Offset por conta do índice 0
-    
-    if (KMenosDois < 0){
+    int kMenosUm = k - 1; // Offset por conta do índice 0
+    int KMenosDois = k - 2; // Offset por conta do índice 0
+
+    if (KMenosDois < 0) {
         KMenosDois = 0;
     }
-    
-    if (kMenosUm < 0){
+
+    if (kMenosUm < 0) {
         kMenosUm = 0;
     }
-    
-    itemset_frequente Ck(k+1);
 
-    for (int i = 0; i < Lkmenos1.tamanho(); i++) {
+    itemset_frequente Ck(k + 1);
+
+    int N = Lkmenos1.tamanho();
+    for (int i = 0; i < N; i++) {
         vector<item*> l1 = Lkmenos1[i];
 
-        for (int j = 0; j < Lkmenos1.tamanho(); j++) {
+        for (int j = 0; j < N; j++) {
 
             bool igualAteKMenosDois = true;
             vector<item*> l2 = Lkmenos1[j];
@@ -195,7 +197,7 @@ itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1) {
                 }
             }
 
-            int l1KMenosUm =l1[kMenosUm]->identificador();
+            int l1KMenosUm = l1[kMenosUm]->identificador();
             int l2LKmenosUm = l2[kMenosUm]->identificador();
             if (igualAteKMenosDois && l1KMenosUm < l2LKmenosUm) {
                 vector<item*> c12(l1);
@@ -208,8 +210,17 @@ itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1) {
         }
     }
 
-    int Ck40 = Ck[4][0]->identificador();
-    int Ck41 = Ck[4][1]->identificador();
+    int tamanho_Ck = Ck.tamanho();
+
+    if (OUTPUT_DEBUG) {
+        for (int i = 0; i < Ck.tamanho(); i++) {
+            cout << "\nCk[" << i << "] = {";
+            for (int j = 0; j < Ck[i].size(); j++) {
+                cout << " " << Ck[i][j]->identificador();
+            }
+            cout << "}";
+        }
+    }
     return Ck;
 }
 

@@ -9,6 +9,7 @@
 #define	GLOBALS_H
 
 #include "item.h"
+#define OUTPUT_DEBUG false
 
 bool comparar_itens(item* i1, item* i2);
 

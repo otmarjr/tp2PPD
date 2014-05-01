@@ -21,8 +21,17 @@ void itemset_frequente::adicionar_conjunto(vector<item*> conjunto){
     vector<item*> v_aux (conjunto);
     
      std::sort(v_aux.begin(), v_aux.end(), comparar_itens);
-    
-    this->subconjuntos_ordenados.push_back(v_aux);
+
+     bool conjunto_ja_adicionado = false;
+     for (int i=0;i<this->subconjuntos_ordenados.size();i++){
+        if (std::includes(this->subconjuntos_ordenados[i].begin(), this->subconjuntos_ordenados[i].end(), conjunto.begin(), conjunto.end())){
+            conjunto_ja_adicionado = true;
+        }
+     }
+     
+     if (!conjunto_ja_adicionado){
+        this->subconjuntos_ordenados.push_back(v_aux);
+     }
     
 }
 

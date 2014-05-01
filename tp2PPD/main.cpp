@@ -10,7 +10,7 @@
 #include <vector>
 #include <map>
 
-#define OUTPUT_DEBUG true
+
 
 #include "banco_dados.h"
 using namespace std;
@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 
     banco_dados bd = banco_dados::gerar_massa_testes();
     
-    bd.obter_conjunto_a_priori(0.22);
+    bd.obter_conjunto_a_priori(0.11);
     return 0;
 }
 
