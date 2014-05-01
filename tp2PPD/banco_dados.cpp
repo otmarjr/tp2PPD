@@ -124,6 +124,8 @@ vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_min
         vector<int> count_c(Ck.tamanho(),0);
        
         for (int i = 0; i<this->transacoes.size(); i++) {
+            int lol;
+            lol=0;
             vector<vector<item*> > Ct = this->transacoes[i]->recuperar_subconjuntos_candidatos(Ck.k());
 
             for (int x = 0; x < Ck.tamanho(); x++) {

@@ -44,12 +44,6 @@
       </item>
       <item path="banco_dados.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="functions.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="functions.cpp.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="functions.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="globals.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="globals.h" ex="false" tool="3" flavor2="0">
@@ -92,12 +86,6 @@
       <item path="banco_dados.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="banco_dados.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="functions.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="functions.cpp.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="functions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="globals.cpp" ex="false" tool="1" flavor2="0">
       </item>

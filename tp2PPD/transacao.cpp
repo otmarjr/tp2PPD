@@ -46,7 +46,7 @@ vector<vector<item*> > obter_subconjuntos(int posicao_inicial, int tamanho_subco
         }
     }
     else {
-        for (int i=posicao_inicial;i<posicao_inicial+tamanho_subconjunto;i++){
+        for (int i=posicao_inicial;i<=conjunto.size()-tamanho_subconjunto;i++){
             vector<vector<item*> > subs_a_frente = obter_subconjuntos(i+1,tamanho_subconjunto-1,conjunto);
             for (int j=0;j<subs_a_frente.size();j++){
                 vector<item*> v2 = subs_a_frente[j];
@@ -65,6 +65,7 @@ vector<vector<item*> > transacao::recuperar_subconjuntos_candidatos(int K)
     int T = this->itens_comprados.size();
     
     if (K<=T){
+        std::sort(this->itens_comprados.begin(), this->itens_comprados.end(), comparar_itens);
         return obter_subconjuntos(0,K, this->itens_comprados);
     }
     else{
