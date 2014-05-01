@@ -11,6 +11,7 @@
 class item {
 public:
     item(int id_item);
+    bool operator < (item* it) const;
     int identificador();
 private:
     int id;

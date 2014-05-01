@@ -16,3 +16,7 @@ int item::identificador(){
     return this->id;
 }
 
+bool item::operator < (item* it) const
+{
+    return this->id < it->id;
+}

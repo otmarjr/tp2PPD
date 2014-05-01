@@ -6,6 +6,7 @@
  */
 
 #include "transacao.h"
+#include "globals.h"
 #include <algorithm>
 
 transacao::transacao(int id) {
@@ -50,6 +51,7 @@ vector<vector<item*> > obter_subconjuntos(int posicao_inicial, int tamanho_subco
             for (int j=0;j<subs_a_frente.size();j++){
                 vector<item*> v2 = subs_a_frente[j];
                 v2.insert(v2.begin(), conjunto[i]);
+                std::sort(v2.begin(), v2.end(), comparar_itens);
                 v.push_back(v2);
             }
         }

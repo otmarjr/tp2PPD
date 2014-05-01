@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/banco_dados.o \
+	${OBJECTDIR}/globals.o \
 	${OBJECTDIR}/item.o \
 	${OBJECTDIR}/itemset_frequente.o \
 	${OBJECTDIR}/main.o \
@@ -70,6 +71,11 @@ ${OBJECTDIR}/banco_dados.o: banco_dados.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/banco_dados.o banco_dados.cpp
+
+${OBJECTDIR}/globals.o: globals.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/globals.o globals.cpp
 
 ${OBJECTDIR}/item.o: item.cpp 
 	${MKDIR} -p ${OBJECTDIR}

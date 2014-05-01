@@ -1,4 +1,5 @@
 #include "banco_dados.h"
+#include "transacao.h"
 
 #include <vector>
 #include <algorithm>
@@ -123,8 +124,7 @@ vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_min
         vector<int> count_c(Ck.tamanho(),0);
        
         for (int i = 0; i<this->transacoes.size(); i++) {
-            transacao* t = this->transacoes[i];
-            vector<vector<item*> > Ct = t->recuperar_subconjuntos_candidatos(Ck.k());
+            vector<vector<item*> > Ct = this->transacoes[i]->recuperar_subconjuntos_candidatos(Ck.k());
 
             for (int x = 0; x < Ck.tamanho(); x++) {
                 vector<item*> c = Ck[x];
@@ -137,21 +137,14 @@ vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_min
                 }
             }
         }
-        /*
-        #ifdef OUTPUT_DEBUG
-        cout<<"\n j: "<<j<<" {";
-        for (int y=0;y<Ck[j].size();y++) {
-            cout<<" "<<Ck[j][y];
-        }
-        cout<<"}";
-        #endif
-         * */
-        
+
         for (int y=0;y<Ck.tamanho();y++){
             cout<<"\n Ck[: "<<y<<"] = ";
             for (int y2=0;y2<Ck[y].size();y2++){
                 cout<<" "<<Ck[y][y2]->identificador();
             }
+            
+            cout<<" count = "<<count_c[y];
         }
         
         int T = this->transacoes.size();
@@ -209,12 +202,6 @@ itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1) {
                 if (!tem_sub_conjunto_infrequente(c12, Lkmenos1)) {
                     Ck.adicionar_conjunto(c12);
                 }
-            }
-            
-            if (Ck.tamanho() >= 5){
-                int Ck40 = Ck[4][0]->identificador();
-                int Ck41 = Ck[4][1]->identificador();
-                cout<<"lol";
             }
         }
     }
