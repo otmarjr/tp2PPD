@@ -21,7 +21,7 @@ int transacao::id(){
     return this->id_transacao;
 }
 
-void transacao::adicionar_item_comprado(item* it){
+void transacao::adicionar_item_a_transacao(item* it){
     int p=0;
     for (int i=0;i<this->itens_comprados.size();i++){
         if (it < this->itens_comprados[i]){
