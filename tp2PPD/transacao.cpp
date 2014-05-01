@@ -46,9 +46,9 @@ vector<vector<item*> > obter_subconjuntos(int posicao_inicial, int tamanho_subco
     }
     else {
         for (int i=posicao_inicial;i<posicao_inicial+tamanho_subconjunto;i++){
-            vector<vector<item*> > subs_a_frente = obter_subconjuntos(posicao_inicial+1,tamanho_subconjunto-1,conjunto);
+            vector<vector<item*> > subs_a_frente = obter_subconjuntos(i+1,tamanho_subconjunto-1,conjunto);
             for (int j=0;j<subs_a_frente.size();j++){
-                vector<item*> v2 = subs_a_frente[i];
+                vector<item*> v2 = subs_a_frente[j];
                 v2.insert(v2.begin(), conjunto[i]);
                 v.push_back(v2);
             }
@@ -58,25 +58,8 @@ vector<vector<item*> > obter_subconjuntos(int posicao_inicial, int tamanho_subco
     return v;
 }
 
-vector<vector<item*> > transacao::recuperar_subconjuntos_candidatos(itemset_frequente Ck){
-    vector<vector<item*> > v;
-    
-    for (int i=0;i<Ck.tamanho();i++){
-        if (Ck[i].size() == Ck.tamanho()){
-            vector<vector<item*> > v2 = recuperar_subconjuntos_candidatos(Ck[i]);
-            
-            for (int j=0;j<v2.size();j++){
-                v.push_back(v2[j]);
-            }
-        }
-    }
-    
-    return v;
-}
-
-vector<vector<item*> > transacao::recuperar_subconjuntos_candidatos(vector<item*> Ck)
+vector<vector<item*> > transacao::recuperar_subconjuntos_candidatos(int K)
 {
-    int K = Ck.size();
     int T = this->itens_comprados.size();
     
     if (K<=T){

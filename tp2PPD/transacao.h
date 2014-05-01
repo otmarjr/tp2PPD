@@ -20,8 +20,7 @@ public:
     bool possui_item(item* it) const;
     int id();
     void adicionar_item_comprado(item* it);
-    vector<vector<item*> > recuperar_subconjuntos_candidatos(vector<item*> Ck);
-    vector<vector<item*> > recuperar_subconjuntos_candidatos(itemset_frequente Ck);
+    vector<vector<item*> > recuperar_subconjuntos_candidatos(int K);
 private:
     int id_transacao;
     vector<item*> itens_comprados;

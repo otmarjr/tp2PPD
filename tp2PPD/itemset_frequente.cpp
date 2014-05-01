@@ -16,10 +16,14 @@ int itemset_frequente::k() {
     return this->indice_k;
 }
 
+bool comparar_itens(item* i1, item* i2){
+    return i1->identificador() < i2->identificador();
+}
+
 void itemset_frequente::adicionar_conjunto(vector<item*> conjunto){
     vector<item*> v_aux (conjunto);
     
-    std::sort(v_aux.begin(), v_aux.end());
+    std::sort(v_aux.begin(), v_aux.end(), comparar_itens);
     
     this->subconjuntos_ordenados.push_back(v_aux);
     

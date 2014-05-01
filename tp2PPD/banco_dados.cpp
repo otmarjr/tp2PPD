@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <iostream>
 using namespace std;
 
 vector<item*> massa_testes_itens() {
@@ -119,24 +120,37 @@ vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_min
     
     for (int k = 2; !LkmenosUm.esta_vazio(); k++) {
         itemset_frequente Ck = apriori_gen(LkmenosUm);
-        vector<int> count_c;
-
-        for (int i = 0; i < Ck.tamanho(); i++) {
-            count_c[i] = 0;
-        }
-
+        vector<int> count_c(Ck.tamanho(),0);
+       
         for (int i = 0; i<this->transacoes.size(); i++) {
             transacao* t = this->transacoes[i];
-            vector<vector<item*> > Ct = t->recuperar_subconjuntos_candidatos(Ck);
+            vector<vector<item*> > Ct = t->recuperar_subconjuntos_candidatos(Ck.k());
 
-            for (int i = 0; i < Ck.tamanho(); i++) {
-                vector<item*> c = Ck[i];
+            for (int x = 0; x < Ck.tamanho(); x++) {
+                vector<item*> c = Ck[x];
 
                 for (int j = 0; j < Ct.size(); j++) {
                     if (std::includes(Ct[j].begin(), Ct[j].end(), c.begin(), c.end())) {
-                        count_c[i] = count_c[i] + 1;
+                        count_c[x] = count_c[x] + 1;
                     }
+                    
                 }
+            }
+        }
+        /*
+        #ifdef OUTPUT_DEBUG
+        cout<<"\n j: "<<j<<" {";
+        for (int y=0;y<Ck[j].size();y++) {
+            cout<<" "<<Ck[j][y];
+        }
+        cout<<"}";
+        #endif
+         * */
+        
+        for (int y=0;y<Ck.tamanho();y++){
+            cout<<"\n Ck[: "<<y<<"] = ";
+            for (int y2=0;y2<Ck[y].size();y2++){
+                cout<<" "<<Ck[y][y2]->identificador();
             }
         }
         
@@ -157,12 +171,19 @@ vector<itemset_frequente> banco_dados::obter_conjunto_a_priori(float suporte_min
 }
 
 itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1) {
-    int n = 0;
-
-    int k = Lkmenos1.tamanho() + 1;
-    int kMenosUm = Lkmenos1.tamanho();
-    int KMenosDois = kMenosUm - 1;
-    itemset_frequente Ck(k);
+    int k = Lkmenos1.k();
+    int kMenosUm = k-1; // Offset por conta do índice 0
+    int KMenosDois = k-2; // Offset por conta do índice 0
+    
+    if (KMenosDois < 0){
+        KMenosDois = 0;
+    }
+    
+    if (kMenosUm < 0){
+        kMenosUm = 0;
+    }
+    
+    itemset_frequente Ck(k+1);
 
     for (int i = 0; i < Lkmenos1.tamanho(); i++) {
         vector<item*> l1 = Lkmenos1[i];
@@ -179,7 +200,9 @@ itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1) {
                 }
             }
 
-            if (igualAteKMenosDois && l1[kMenosUm] < l2[kMenosUm]) {
+            int l1KMenosUm =l1[kMenosUm]->identificador();
+            int l2LKmenosUm = l2[kMenosUm]->identificador();
+            if (igualAteKMenosDois && l1KMenosUm < l2LKmenosUm) {
                 vector<item*> c12(l1);
                 c12.push_back(l2[kMenosUm]);
 
@@ -187,9 +210,17 @@ itemset_frequente banco_dados::apriori_gen(itemset_frequente Lkmenos1) {
                     Ck.adicionar_conjunto(c12);
                 }
             }
+            
+            if (Ck.tamanho() >= 5){
+                int Ck40 = Ck[4][0]->identificador();
+                int Ck41 = Ck[4][1]->identificador();
+                cout<<"lol";
+            }
         }
     }
 
+    int Ck40 = Ck[4][0]->identificador();
+    int Ck41 = Ck[4][1]->identificador();
     return Ck;
 }
 

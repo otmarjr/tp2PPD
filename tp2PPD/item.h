@@ -11,8 +11,6 @@
 class item {
 public:
     item(int id_item);
-    bool operator == (const item &other) const;
-    bool operator < (const item& it) const;
     int identificador();
 private:
     int id;
