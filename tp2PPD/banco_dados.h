@@ -19,6 +19,7 @@ class banco_dados {
 public:
     banco_dados(vector<item*> itens_a_venda, vector<transacao*> vendas);
     static banco_dados gerar_massa_testes();
+    static banco_dados gerar_massa_testes_issues();
     vector<itemset_frequente> obter_conjunto_a_priori(float suporte_minimo);
 private:
     vector<item*> itens_a_venda;

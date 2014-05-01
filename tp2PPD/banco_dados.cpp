@@ -5,6 +5,12 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <map>
+#include <fstream>
+#include <cstdlib>
+#include <sstream>
+#include <iterator>
+
 using namespace std;
 
 vector<item*> massa_testes_itens() {
@@ -84,6 +90,46 @@ banco_dados banco_dados::gerar_massa_testes() {
     vector<transacao*> v = massa_testes_vendas(its);
     return banco_dados(its, v);
 }
+
+
+map<int,vector<int> > carregar_arquivo_issues(){
+    map<int, vector<int> > m;
+    
+    string linha;
+    ifstream arquivo("C:\\Users\\Otmar\\Google Drive\\Mestrado\\PPD\\tp1\\issue_comments_PPD.csv");
+
+    if (arquivo.is_open())
+    {
+        while (getline(arquivo,linha))
+        {
+            int posicao_separador = linha.find(";");
+            string texto_issue_id = linha.substr(0, posicao_separador);
+            int issue_id = atoi(texto_issue_id.c_str());
+            
+            string comentaristas_issue = linha.substr(posicao_separador+1,linha.length()-posicao_separador-1);
+            stringstream ss(comentaristas_issue);
+            vector<int> ids_comentaristas((istream_iterator<int>(ss)),(istream_iterator<int>())) ;
+            m[issue_id] = ids_comentaristas;
+        }
+    }
+    else
+    {
+        cout<<"\nNão foi possível abrir o arquivo. Verifique se o processo corrente tem permissão de acesso.";
+    }
+    arquivo.close();
+    
+    return m;
+}
+banco_dados banco_dados::gerar_massa_testes_issues() {
+    map<int, vector<int> > arquivo = carregar_arquivo_issues();
+    
+    vector<item*> comentaristas;
+    vector<transacao*> issues;
+    
+    
+    return banco_dados(comentaristas, issues);
+}
+
 
 itemset_frequente banco_dados::f1_itemset(float suporte_minimo) {
     int k = 1;
