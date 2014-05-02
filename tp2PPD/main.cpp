@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 
     banco_dados bd = banco_dados::gerar_massa_testes_issues();
     
-    //bd.obter_conjunto_a_priori(0.11);
+    bd.obter_conjunto_a_priori(0.05);
     return 0;
 }
 
