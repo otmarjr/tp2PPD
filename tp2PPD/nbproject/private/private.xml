@@ -7,14 +7,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/banco_dados.cpp</file>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/itemset_frequente.cpp</file>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/transacao.cpp</file>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/globals.cpp</file>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/banco_dados.h</file>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/main.cpp</file>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/transacao.h</file>
-            <file>file:/C:/Users/Otmar/Documents/NetBeansProjects/tp2PPD/tp2PPD/globals.h</file>
+            <file>file:/home/otmar/NetBeansProjects/tp2PPD/tp2PPD/banco_dados.h</file>
+            <file>file:/home/otmar/NetBeansProjects/tp2PPD/tp2PPD/main.cpp</file>
+            <file>file:/home/otmar/NetBeansProjects/tp2PPD/tp2PPD/globals.h</file>
+            <file>file:/home/otmar/NetBeansProjects/tp2PPD/tp2PPD/transacao.cpp</file>
+            <file>file:/home/otmar/NetBeansProjects/tp2PPD/tp2PPD/banco_dados.cpp</file>
         </group>
     </open-files>
 </project-private>

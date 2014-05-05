@@ -5,7 +5,7 @@
     <conf name="Debug" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">
         <gdb_pathmaps>
@@ -39,7 +39,7 @@
     <conf name="Release" type="1">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">
         <gdb_pathmaps>
@@ -60,8 +60,13 @@
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" "arg 1" "arg 2" "arg 3" "arg 4"</runcommandpicklistitem>
+          <runcommandpicklistitem>mpiexec -n 1 "${OUTPUT_PATH}" "0.25"</runcommandpicklistitem>
+          <runcommandpicklistitem>mpiexec -n 3 "${OUTPUT_PATH}" "0.5"</runcommandpicklistitem>
+          <runcommandpicklistitem>mpiexec -n 1 "${OUTPUT_PATH}" "0.5"</runcommandpicklistitem>
+          <runcommandpicklistitem>mpiexec -n 2 "${OUTPUT_PATH}" "0.5"</runcommandpicklistitem>
+          <runcommandpicklistitem>mpiexec -n 4 "${OUTPUT_PATH}" "0.5"</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" "arg 1" "arg 2" "arg 3" "arg 4"</runcommand>
+        <runcommand>mpiexec -n 4 "${OUTPUT_PATH}" "0.5"</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

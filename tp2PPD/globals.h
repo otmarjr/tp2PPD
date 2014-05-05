@@ -10,6 +10,7 @@
 
 #include "item.h"
 #define OUTPUT_DEBUG false
+#define ID_PROCESSO_MESTRE 0
 
 bool comparar_itens(item* i1, item* i2);
 
